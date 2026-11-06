@@ -27,3 +27,4 @@ export const UpdateProduct = async (req, res)=>{
 export const DeleteProduct =  async (req, res)=>{
     return res.status(200).json({"status":"Delete Specific Product"})
 }
+
