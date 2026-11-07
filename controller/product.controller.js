@@ -42,9 +42,26 @@ export const GetProduct = async (req, res)=>{
 }
 
 export const UpdateProduct = async (req, res)=>{
-    return res.status(200).json({"status":"Update Specific Product"})
+    try {
+        const pid = req.params.id;
+        const {name , image_url , price}  = req.body;
+        await sql`UPDATE products SET name=${name} , image=${image_url} , price=${price} where id=${pid}`
+        return res.status(200).json({"ok":true , 'msg':"Updated Successfully"})
+        
+    } catch (error) {
+       
+       return res.status(500).json({"ok":false , 'msg':"Server Error"})
+        
+    }
 }
 
 export const DeleteProduct =  async (req, res)=>{
-    return res.status(200).json({"status":"Delete Specific Product"})
+    try {
+        const pid = req.params.id;
+        await sql`DELETE FROM products where id=${pid}`
+        return res.status(200).json({"ok":true , 'msg':"Deleted Successfully"})
+    } catch (error) {
+       return res.status(500).json({"ok":false , 'msg':"Server Error"})
+        
+    }
 }
